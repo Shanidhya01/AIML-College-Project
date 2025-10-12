@@ -1,0 +1,56 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.new_venv/
+*.env
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints
+
+# Model files
+*.pkl
+*.joblib
+*.h5
+
+# Data files
+*.csv
+*.tsv
+*.json
+*.db
+*.sqlite3
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# Testing and build
+build/
+dist/
+*.egg-info/
+.coverage
+pytest_cache/
+htmlcov/
+
+# Pip requirements cache
+pip-log.txt
+
+# MyPy & Pyright
+.mypy_cache/
+.pyright/
+
+# Other
+*.bak
+*.orig
