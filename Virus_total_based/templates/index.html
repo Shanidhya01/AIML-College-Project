@@ -8,78 +8,257 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Custom styling */
+        /* CSS rev: 2025-10-12T22:55Z - VT index (enhanced) */
+        /* Theme variables */
+        :root {
+            --bg: #f8f9fa;
+            --bg-dark: #001637;
+            --text: #212529;
+            --text-dark: #f8f9fa;
+            --primary: #2534ff;
+            --primary-accent: #33e7ff;
+            --accent: #ff5733;
+            --card-bg: #ffffff;
+            --card-bg-dark: #0c2346;
+            --muted: #6c757d;
+            --success: #22c55e;
+            --danger: #ef4444;
+        }
+
+        /* Base */
         body {
-            background-color: #f8f9fa;
+            background: radial-gradient(1200px 600px at 0% 0%, #ffffff, var(--bg));
+            color: var(--text);
             transition: background-color 0.3s, color 0.3s;
             padding: 20px;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
         }
         body.dark-mode {
-            background-color: #001637;
-            color: #f8f9fa;
+            background: radial-gradient(1200px 600px at 100% 0%, #04122b, var(--bg-dark));
+            color: var(--text-dark);
         }
-        .bash-output {
-            background-color: #000;
-            color: #0f0;
-            padding: 10px;
-            font-family: monospace;
-            height: 400px;
-            overflow-y: scroll;
-        }
-        .file-upload {
-            margin-bottom: 20px;
-        }
-        .loading-spinner {
-            display: none;
-        }
-        .card-header {
-            background-color: #2534ff;
-            color: #fff;
-        }
-        .card {
-            margin-bottom: 20px;
-        }
-        .dark-mode .card-header {
-            background-color: #495057;
-        }
-        .modal-body, .modal-title {
-            color: #000;
-        }
-        /* Resize modal pie chart */
-        .modal canvas {
-            max-width: 400px !important;
-            max-height: 400px !important;
-            margin: auto;
-        }
+
+        /* Header / Nav */
         header {
-            background-color: #02102b;
+            /* Animated gradient header */
+            background: linear-gradient(90deg, #6a11cb, #2575fc, #00c6ff);
+            background-size: 200% 200%;
+            animation: headerGradient 12s ease infinite;
             color: #fff;
-            padding: 20px 0;
+            padding: 18px 0;
             text-align: center;
             width: 100vw;
             position: fixed;
             top: 0;
             left: 0;
             z-index: 1000;
+            box-shadow: 0 10px 30px rgba(2, 16, 43, 0.4);
         }
-        body {
-            padding-top: 100px; /* Adjusted to add more space */
+        @keyframes headerGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-    
-        header h1 {
-            margin-bottom: 10px;
-            font-size: 2.5rem;
-        }
-    
-        nav {
-            margin-top: 15px;
-        }
-    
+        body { padding-top: 100px; }
+        header h1 { margin-bottom: 8px; font-size: 2.25rem; letter-spacing: .3px; }
+        nav { margin-top: 8px; }
         nav a {
-            color: white;
+            color: #e8eefc;
             text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
+            margin: 0 14px;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: color .2s, background-color .2s;
+        }
+    nav a:hover { background-color: rgba(255,255,255,0.18); color: #fff; }
+
+        /* Cards */
+    .card { margin-bottom: 20px; border: 1px solid rgba(255,255,255,.2); border-radius: 16px; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); box-shadow: 0 16px 40px rgba(0,0,0,.12); }
+    .dark-mode .card { background: rgba(12,35,70,0.55); border-color: rgba(255,255,255,.08); box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+        .card-header { background: linear-gradient(90deg, var(--primary), var(--primary-accent)); color: #fff; border-top-left-radius: 14px; border-top-right-radius: 14px; }
+        .dark-mode .card-header { background: linear-gradient(90deg, #263b8e, #0aa0c5); }
+
+        /* Buttons */
+    .btn-primary { background: linear-gradient(90deg, var(--accent), #ff784e) !important; border: none; box-shadow: 0 10px 20px rgba(255,120,78,.25); transition: transform .15s ease, box-shadow .2s ease, filter .2s ease; }
+    .btn-primary:hover { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 14px 28px rgba(255,120,78,.35); }
+    .btn-primary:active { transform: translateY(0); box-shadow: 0 8px 18px rgba(255,120,78,.25); }
+        #toggleDarkMode.btn { border: 1px solid rgba(0,0,0,.1); }
+        .dark-mode #toggleDarkMode.btn { border-color: rgba(255,255,255,.2); }
+
+        /* Forms */
+        .file-upload { margin-bottom: 20px; }
+        .form-control { border-radius: 10px; border-color: #e3e7ef; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 .2rem rgba(37,52,255,.15); }
+        .dark-mode .form-control { background-color: #071a34; color: var(--text-dark); border-color: #0f2e5b; }
+        .dark-mode .form-control::placeholder { color: #9cb3d1; }
+
+        /* Alerts */
+        .alert { border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,.06); }
+        .alert-danger { background-color: #fde8e8; color: #7f1d1d; border: 1px solid #fca5a5; }
+        .dark-mode .alert-danger { background-color: #3a0f11; color: #fecaca; border-color: #7f1d1d; }
+
+        /* Bash-like output */
+        .bash-output {
+            background: #0a0f14;
+            color: #a7f3d0;
+            padding: 14px 16px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            height: 400px;
+            overflow-y: auto;
+            border-radius: 12px;
+            border: 1px solid #0b2a2a;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 10px 24px rgba(0,0,0,0.15);
+            line-height: 1.4;
+        }
+        /* Custom scrollbar */
+        .bash-output::-webkit-scrollbar { width: 10px; }
+        .bash-output::-webkit-scrollbar-track { background: #0c1319; border-radius: 10px; }
+        .bash-output::-webkit-scrollbar-thumb { background: #0f766e; border-radius: 10px; border: 2px solid #0c1319; }
+        .bash-output { scrollbar-color: #0f766e #0c1319; scrollbar-width: thin; }
+        /* Add a visible label to prove new CSS is active */
+        .bash-output::before {
+            content: "Terminal";
+            display: inline-block;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: #e2f9f0;
+            background: #07342d;
+            border: 1px solid #0b6b57;
+            border-radius: 6px;
+            padding: 4px 8px;
+            margin-bottom: 8px;
+        }
+        .dark-mode .bash-output { background: #05090e; color: #7ee1bf; border-color: #0b3b3b; }
+
+        /* Spinner */
+        .loading-spinner { display: none; }
+        .spinner-border { color: var(--primary); }
+
+        /* Modal */
+        .modal-body, .modal-title { color: #000; }
+        .dark-mode .modal-content { background: #0b1f40; color: var(--text-dark); }
+        .modal canvas { max-width: 400px !important; max-height: 400px !important; margin: auto; }
+
+        /* Link underline accent */
+        nav a { position: relative; }
+        nav a::after { content: ""; position: absolute; left: 10%; right: 10%; bottom: -4px; height: 2px; background: linear-gradient(90deg, #fff, rgba(255,255,255,.2)); transform: scaleX(0); transform-origin: center; transition: transform .2s ease; border-radius: 2px; }
+        nav a:hover::after { transform: scaleX(1); }
+
+        /* Subtle page fade-in */
+        body { animation: pageFade .25s ease-out; }
+        @keyframes pageFade { from { opacity: .0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ---- Extra polish for enhanced UI ---- */
+        /* Center content and improve spacing */
+        .container {
+            max-width: 1100px;
+            margin-inline: auto;
+        }
+        h1.text-center {
+            letter-spacing: 0.2px;
+            text-shadow: 0 2px 8px rgba(0,0,0,.25);
+        }
+
+        /* Subtle mid-page gradient for depth */
+        .container.mt-5 {
+            position: relative;
+        }
+        .container.mt-5::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 520px;
+            background: radial-gradient(900px 500px at 50% -10%, rgba(255,255,255,.06), rgba(255,255,255,0));
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Better form inputs on dark background */
+        .form-control {
+            background-color: rgba(255,255,255,0.92);
+            border: 1px solid #d9e2ef;
+            color: #1d2b46;
+            transition: all .2s ease;
+        }
+        .form-control::placeholder {
+            color: #7f8ba6;
+        }
+        .form-control:focus {
+            background-color: #fff;
+            border-color: #2575fc;
+            box-shadow: 0 0 0 .2rem rgba(37,117,252,.15);
+            transform: translateY(-1px);
+        }
+        .dark-mode .form-control {
+            background-color: #0c1e3d;
+            border-color: #204676;
+            color: #e5eefc;
+        }
+        .dark-mode .form-control::placeholder {
+            color: #9fb5d6;
+        }
+        .dark-mode .form-control:focus {
+            border-color: #33e7ff;
+            box-shadow: 0 0 0 .2rem rgba(51,231,255,.15);
+        }
+
+        /* Enhanced Analyze button */
+        .btn.btn-primary.w-100 {
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            box-shadow: 0 12px 24px rgba(255,120,78,.28);
+            transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+        }
+        .btn.btn-primary.w-100:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+            box-shadow: 0 18px 36px rgba(255,120,78,.36);
+        }
+        .btn.btn-primary.w-100:active {
+            transform: translateY(0);
+            box-shadow: 0 10px 20px rgba(255,120,78,.25);
+        }
+
+        /* Enhanced terminal appearance */
+        .bash-output {
+            border-color: #124a44;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 12px 28px rgba(0,0,0,0.22);
+        }
+        .bash-output::before {
+            font-weight: 600;
+            color: #e1fcf4;
+            background: linear-gradient(90deg, #0a5f54, #0f766e);
+            border: 1px solid #0b6b57;
+            border-radius: 8px;
+            padding: 5px 12px;
+            margin-bottom: 10px;
+        }
+
+        /* Brighter scrollbar */
+        .bash-output::-webkit-scrollbar-thumb {
+            background: #14b8a6;
+            border: 2px solid #0c1319;
+        }
+
+        /* Card hover refinement */
+        .card {
+            transition: transform .18s ease, box-shadow .2s ease;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 48px rgba(0,0,0,.18);
+        }
+        .dark-mode .card:hover {
+            box-shadow: 0 20px 48px rgba(0,0,0,.5);
+        }
+
+        /* Nav link micro-interaction */
+        nav a {
+            transition: all .2s ease;
+        }
+        nav a:hover {
+            transform: translateY(-1px);
         }
     </style>
     
