@@ -245,7 +245,7 @@ By analyzing these scores and visualizations, we gain insight into the model's l
 # Installation process
 
 ```
-1. git clone https://github.com/0xfke/Malware-Detection-and-Analysis-using-Machine-Learning.git
+1. git clone https://github.com/Shanidhya01/AIML-College-Project.git
 
 2. cd ML_based_detectionn
     python -m venv newvenv
