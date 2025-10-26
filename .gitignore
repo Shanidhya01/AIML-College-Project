@@ -55,3 +55,5 @@ pip-log.txt
 # Other
 *.bak
 *.orig
+Assets/
+ML_based_detectionn/uploads/
